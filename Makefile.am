@@ -204,27 +204,27 @@ filter_LTLIBRARIES = email-filter.la tex-filter.la\
 
 email_filter_la_SOURCES = modules/filter/email.cpp
 email_filter_la_LIBADD = libaspell.la 
-email_filter_la_LDFLAGS  = ${filter_ldflags}
+email_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspeemfl
 
 tex_filter_la_SOURCES = modules/filter/tex.cpp
 tex_filter_la_LIBADD = libaspell.la
-tex_filter_la_LDFLAGS  = ${filter_ldflags}
+tex_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetefl
 
 sgml_filter_la_SOURCES  = modules/filter/sgml.cpp
 sgml_filter_la_LIBADD = libaspell.la
-sgml_filter_la_LDFLAGS  = ${filter_ldflags}
+sgml_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspesgfl
 
 context_filter_la_SOURCES  = modules/filter/context.cpp
 context_filter_la_LIBADD = libaspell.la
-context_filter_la_LDFLAGS  = ${filter_ldflags}
+context_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspecofl
 
 nroff_filter_la_SOURCES  = modules/filter/nroff.cpp
 nroff_filter_la_LIBADD = libaspell.la
-nroff_filter_la_LDFLAGS  = ${filter_ldflags}
+nroff_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspenrfl
 
 texinfo_filter_la_SOURCES  = modules/filter/texinfo.cpp
 texinfo_filter_la_LIBADD = libaspell.la
-texinfo_filter_la_LDFLAGS  = ${filter_ldflags}
+texinfo_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetifl
 
 ### Before this line add the corresponding <yourfilterlibrary>_SOURCES and
 ### <yourfilterlibrary>_LIBADD lines.  The later at least has to look

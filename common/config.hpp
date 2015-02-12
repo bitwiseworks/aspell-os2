@@ -6,6 +6,9 @@
 
 #ifndef ASPELL_CONFIG___HPP
 #define ASPELL_CONFIG___HPP
+#ifdef __OS2__
+#define libintl_printf printf
+#endif
 
 #include "can_have_error.hpp"
 #include "key_info.hpp"
