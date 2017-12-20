@@ -1,3 +1,7 @@
+VENDOR ?=community
+BUILD_INFO=\#\#1\#\# $(shell date +'%d %b %Y %H:%M:%S')     $(shell uname -n)
+BUILDLEVEL_INFO=@\#$(VENDOR):$(VERSION)\#@$(BUILD_INFO)::::0::
+
 AUTOMAKE_OPTIONS = foreign subdir-objects
 SUBDIRS = . po manual
 DIST_SUBDIRS = ${SUBDIRS} examples myspell lib5
@@ -111,6 +115,7 @@ libpspell_la_LDFLAGS = -version-info 16:5:1 -no-undefined
 endif
 
 endif
+libaspell_la_LDFLAGS += -buildlevel '$(BUILDLEVEL_INFO)'
 
 EXTRA_DIST += common/*.hpp common/*.h\
               modules/speller/default/*.hpp\
@@ -204,27 +209,33 @@ filter_LTLIBRARIES = email-filter.la tex-filter.la\
 
 email_filter_la_SOURCES = modules/filter/email.cpp
 email_filter_la_LIBADD = libaspell.la 
-email_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspeemfl
+email_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspeemfl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 tex_filter_la_SOURCES = modules/filter/tex.cpp
 tex_filter_la_LIBADD = libaspell.la
-tex_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetefl
+tex_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetefl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 sgml_filter_la_SOURCES  = modules/filter/sgml.cpp
 sgml_filter_la_LIBADD = libaspell.la
-sgml_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspesgfl
+sgml_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspesgfl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 context_filter_la_SOURCES  = modules/filter/context.cpp
 context_filter_la_LIBADD = libaspell.la
-context_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspecofl
+context_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspecofl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 nroff_filter_la_SOURCES  = modules/filter/nroff.cpp
 nroff_filter_la_LIBADD = libaspell.la
-nroff_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspenrfl
+nroff_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspenrfl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 texinfo_filter_la_SOURCES  = modules/filter/texinfo.cpp
 texinfo_filter_la_LIBADD = libaspell.la
-texinfo_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetifl
+texinfo_filter_la_LDFLAGS  = ${filter_ldflags} -os2dllname aspetifl \
+	-buildlevel '$(BUILDLEVEL_INFO)'
 
 ### Before this line add the corresponding <yourfilterlibrary>_SOURCES and
 ### <yourfilterlibrary>_LIBADD lines.  The later at least has to look
