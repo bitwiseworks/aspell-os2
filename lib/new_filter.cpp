@@ -152,17 +152,29 @@ namespace acommon
             !(filter_handle  = dlopen(module->file,RTLD_NOW)))
           return make_err(cant_dlopen_file,dlerror()).with_file(filter_name);
 
+#ifdef __OS2__
+        fun = "_new_aspell_";
+#else
         fun = "new_aspell_";
+#endif
         fun += filter_name;
         fun += "_decoder";
         dynamic_filter.decoder = (FilterFun *)dlsym(decoder_handle.get(), fun.str());
 
+#ifdef __OS2__
+        fun = "_new_aspell_";
+#else
         fun = "new_aspell_";
+#endif
         fun += filter_name;
         fun += "_encoder";
         dynamic_filter.encoder = (FilterFun *)dlsym(encoder_handle.get(), fun.str());
 
+#ifdef __OS2__
+        fun = "_new_aspell_";
+#else
         fun = "new_aspell_";
+#endif
         fun += filter_name;
         fun += "_filter";
         dynamic_filter.filter = (FilterFun *)dlsym(filter_handle.get(), fun.str());
@@ -454,6 +466,22 @@ namespace acommon
     RET_ON_ERR(module->end_option());
     const char * slash = strrchr(option_file.str(), '/');
     assert(slash);
+#ifdef __OS2__
+// we overwrite all know filternames with the right dll name as set
+// in Makefile.am.
+    if (module->file == "context-filter" || filter_name == "context")
+      module->file = "aspecofl";
+    else if (module->file == "email-filter" || filter_name == "email")
+      module->file = "aspeemfl";
+    else if (module->file == "nroff-filter" || filter_name == "nroff")
+      module->file = "aspenrfl";
+    else if (module->file == "sgml-filter" || filter_name == "sgml")
+      module->file = "aspesgfl";
+    else if (module->file == "tex-filter" || filter_name == "tex")
+      module->file = "aspetefl";
+    else if (module->file == "texinfo-filter" || filter_name == "texinfo")
+      module->file = "aspetifl";
+#endif
     if (module->file.empty()) {
       module->file.assign(option_file.str(), slash + 1 - option_file.str());
       //module->file += "lib";
@@ -462,9 +490,13 @@ namespace acommon
     } else {
       if (module->file[0] != '/')
         module->file.insert(0, option_file.str(), slash + 1 - option_file.str());
+#ifndef __OS2__
       module->file += ".so";
+#else
+      module->file += ".dll";
+#endif
     }
-
+printf("bww trace %s %s\n", filter_name.str(), module->file.str());
     return module.release();
   }
 

@@ -13,6 +13,9 @@
 #include "fstream.hpp"
 #include "errors.hpp"
 #include "string_list.hpp"
+#ifdef __OS2__
+#include "asc_ctype.hpp"
+#endif
 
 #ifdef USE_FILE_LOCKS
 #  include <fcntl.h>
@@ -45,7 +48,7 @@ namespace acommon {
   // a directory prepended.
   bool need_dir(ParmString file) {
     if (file[0] == '/' || (file[0] == '.' && file[1] == '/')
-#ifdef WIN32
+#if defined(WIN32) or defined(__OS2__)
         || (asc_isalpha(file[0]) && file[1] == ':')
         || file[0] == '\\' || (file[0] == '.' && file[1] == '\\')
 #endif
