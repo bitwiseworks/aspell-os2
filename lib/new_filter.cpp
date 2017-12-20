@@ -496,7 +496,6 @@ namespace acommon
       module->file += ".dll";
 #endif
     }
-printf("bww trace %s %s\n", filter_name.str(), module->file.str());
     return module.release();
   }
 
