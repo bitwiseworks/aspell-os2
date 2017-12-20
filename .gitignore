@@ -3,7 +3,7 @@ aclocal.m4
 autom4te.cache/
 configure
 examples/Makefile.in
-gen/settings.h.in
+gen/settings.h.in*
 lib5/Makefile.in
 ltmain.sh
 m4/libtool.m4
